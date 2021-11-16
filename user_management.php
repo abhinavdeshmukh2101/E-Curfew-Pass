@@ -102,22 +102,6 @@
             </a>
             </li>
           <li class="nav-item">
-            <a href="person_management.php" class="nav-link">
-              <i class="nav-icon fas fa-address-card"></i>
-              <p>
-                Person Management
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="id_type.php" class="nav-link">
-              <i class="nav-icon fas fa-list-ol"></i>
-              <p>
-                ID Type
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
             <a href="request_pass.php" class="nav-link">
               <i class="nav-icon fas fa-file-alt"></i>
               <p>
