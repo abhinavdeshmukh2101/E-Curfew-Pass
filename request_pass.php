@@ -180,7 +180,7 @@
                   </tr>
                   </thead>
                   <tbody>
-                  <tr>
+                  <!-- <tr>
                     <td>Julie Julia</td>
                     <td>passCode</td>
                     <td>Essential Pass</td>
@@ -197,39 +197,11 @@
                       <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#approved"><i class="fa fa-check"> Approve</i></button>
                       <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#delete"><i class="fa fa-trash"> Delete</i></button>
                     </td>
-                  </tr>
-                  <tr>
-                    <td>Pedro Heracia</td>
-                    <td>passCode</td>
-                    <td>Medical Pass</td>
-                    <td>03/15/2021</td>
-                    <td>04/15/2021</td>
-                    <td>Remarks</td>
-                    <td>Pending..</td>
-                    <td>
-                        <input type="text" class="form-control" name="apprvd" required placeholder="Approved By..">
-                      </td>
-                    <td>
-                      <button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#updateRequest2"><i class="fa fa-pencil-alt"> Edit</i> 
-                        </button>
-                      <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#approved"><i class="fa fa-check"> Approve</i></button>
-                      <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#delete"><i class="fa fa-trash"> Delete</i></button>
-                    </td>
-                  </tr>
+                  </tr> -->
+
+                  
                   </tbody>
-                  <tfoot>
-                  <tr>
-                    <th>Person Name</th>
-                    <th>Pass Code</th>
-                    <th>Pass Type</th>
-                    <th>Date of Request</th>
-                    <th>Date of Validity</th>
-                    <th>Remarks</th>
-                    <th>Status</th>
-                    <th>Approved By</th>
-                    <th>Action</th>
-                  </tr>
-                  </tfoot>
+                  
                 </table>
               </div>
               <!-- /.card-body -->

@@ -167,18 +167,15 @@
                   <tr>
                     <th>Avatar</th>
                     <th>Full Name</th>
+                    <th>Username</th>
                     <th>Contact</th>
                     <th>Email</th>
-                    <th>Barangay</th>
                     <th>User Category</th>
-                    <th>Status</th>
-                    <th>Username</th>
-                    <th>Password</th>
                     <th>Action</th>
                   </tr>
                   </thead>
                   <tbody>
-                  <tr>
+                  <!-- <tr>
                     <td><img src="dist/img/avatar2.png" alt="AdminLTE Logo" class="brand-image img-square elevation-3" width="40" style="opacity: .8"></td>
                     <td>Celia Gomez</td>
                     <td>09091234567</td>
@@ -193,22 +190,36 @@
                             </button>
                       <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#delete"><i class="fa fa-trash"> Delete</i></button>
                     </td>
-                  </tr>
+                  </tr> -->
+
+                  <?php 
+                  
+                  $conn2 = mysqli_connect("localhost", "abhi9", "12345", "epass");
+                  if ($conn2->connect_error) {
+                    die("Connection failed: " . $conn->connect_error);
+                  }
+
+                  $records = mysqli_query($conn2,"select * from user_registration");
+
+                  while($row_data = mysqli_fetch_array($records)){
+                  ?>
+                    <tr>
+                    <td><img src="dist/img/avatar2.png" alt="AdminLTE Logo" class="brand-image img-square elevation-3" width="40" style="opacity: .8"></td>
+                      <td><?php echo $row_data['name']; ?></td>
+                      <td><?php echo $row_data['username']; ?></td>
+                      <td><?php echo $row_data['contact']; ?></td>
+                      <td><?php echo $row_data['email']; ?></td>
+                      <td>User</td> <!-- hard coded to be removed-->
+                      <td>
+                        <button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#updateCust1"><i class="fa fa-pencil-alt"> Edit</i> 
+                              </button>
+                        <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#delete"><i class="fa fa-trash"> Delete</i></button>
+                      </td>
+                    </tr>
+                  <?php 
+                  }
+                  ?>
                   </tbody>
-                  <tfoot>
-                  <tr>
-                    <th>Avatar</th>
-                    <th>Full Name</th>
-                    <th>Contact</th>
-                    <th>Email</th>
-                    <th>Barangay</th>
-                    <th>User Category</th>
-                    <th>Status</th>
-                    <th>Username</th>
-                    <th>Password</th>
-                    <th>Action</th>
-                  </tr>
-                  </tfoot>
                 </table>
               </div>
               <!-- /.card-body -->
