@@ -1,7 +1,12 @@
+<!-- for login page-> authentication,  -->
+
 <?php
 
-  $userId = $_REQUEST['userName'];
-  $password = $_REQUEST['password'];
+  $userId = "";
+  $password = "";
+  $userUniqueId = 1;
+  settype($userUniqueId, 'integer');
+  $redirectLink = "";
 
   $conn1 = mysqli_connect("localhost", "abhi9", "12345", "epass");
 
@@ -11,7 +16,7 @@
   // echo "Connected successfully";
 
   if(isset($_REQUEST['userName'])){
-    $userName = $_REQUEST['userName'];
+    $userId = $_REQUEST['userName'];
   }
 
   if(isset($_REQUEST['password'])){
@@ -19,21 +24,33 @@
   }
 
   if(isset($_REQUEST['sign-in'])){
-    $sql = "select username, hash_pass from user_registration";
-    $result = mysqli_query($conn, $sql);
+    $sql = "select username, password, user_category from user_registration";
+    $result = mysqli_query($conn1, $sql);
 
-    if($result1->num_rows > 0){
-      while($row = $result1->fetch_assoc()){
-        if($row["username"] == $username){
+    if($result -> num_rows > 0){
+      while($row = $result->fetch_assoc()){
+        if($row["username"] == $userId){
 
-          if($row["password"] == $hash_pass){
-            header("location: dashborad.php");
-            exit;
+          if($row["password"] == $password){
+            
+            if($row["user_category"] == "admin"){
+              header('location:/dashboard.php/' . $userUniqueId);
+              $message = "Login Successfull";
+              echo "<script type='text/javascript'>alert('$message');</script>";
+              die;
+            }
+            else if($row["user_category"] == "user"){
+              header('location:/userDashboard.php/' . $userUniqueId);
+              die;
+              $message = "Login Successfull";
+              echo "<script type='text/javascript'>alert('$message');</script>";
+            }
           }
 
           else{
             $message = "Incorrect username or password";
             echo "<script type='text/javascript'>alert('$message');</script>";
+            exit;
           }
         }
 
@@ -73,7 +90,7 @@
 <div class="row">
     <div class="col-md-6">
           <div class="login-logo">
-            <a href="index.php"><b>Curfew and </b>Travel Pass<br>
+            <a href="index.php"><b>Curfew</b><br>
                 <img src="ctp_logo.png" alt="Your Avatar" class="img img-responsive" style="opacity:60%;left-margin:auto; max-width:auto"><br>
             </a>
           </div>
@@ -84,7 +101,7 @@
           <div class="card">
             <div class="card-body login-card-body">
               <p class="login-box-msg">Sign in to start your session</p>
-              <form action="dashboard.php" method="post">
+              <form action="" method="post">
                 <div class="input-group mb-3">
                   <input type="text" class="form-control" name="userName" placeholder="Username">
                   <div class="input-group-append">
@@ -111,7 +128,7 @@
                   </div>
                   <!-- /.col -->
                   <div class="col-4">
-                    <button type="submit" class="btn bg-pink btn-block" name="sign-in">Sign In</button>
+                    <button type="submit" class="btn bg-pink btn-block" id="sign-in" name="sign-in">Sign In</button>
                   </div>
                   <!-- /.col -->
                 </div>

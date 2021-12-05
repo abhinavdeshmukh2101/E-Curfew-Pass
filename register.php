@@ -56,13 +56,11 @@
       $message = "Password and Confirm Password field do not match.";
       echo "<script type='text/javascript'>alert('$message');</script>";
       exit;
-    }else if($password == $confirm_password){
-      $hash_pass = password_hash($password, PASSWORD_DEFAULT);
-      settype($hash_pass, 'string');
     }
+    
 
-    $message = $hash_pass;
-    echo "<script type='text/javascript'>alert('$message');</script>";
+    // $message = $hash_pass;
+    // echo "<script type='text/javascript'>alert('$message');</script>";
 
     //checking is the username already exist in the database or not.
     $sql1 = "select username from user_registration";
@@ -86,12 +84,12 @@
 
       // echo "'$personName', '$username', $contactNo, '$emailId'";
 
-      $sql2 = "insert into user_registration(name, username, contact, email, user_category, hash_pass) values('$personName', '$username', $contactNo, '$emailId', 'user', '$hash_pass')";
+      $sql2 = "insert into user_registration(name, username, password, contact, email, user_category) values('$personName', '$username', '$password' ,$contactNo, '$emailId', 'user')";
 
       $result2 = mysqli_query($conn, $sql2);
       
       if($result2){
-        $message = "Request Send Successfully";
+        $message = "Registered Successfully";
         echo "<script type='text/javascript'>alert('$message');</script>";
       }else{
         $message = "Servers are busy, please try again.";
