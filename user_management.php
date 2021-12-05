@@ -1,3 +1,9 @@
+<?php
+
+?>
+
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -123,6 +129,7 @@
     </div>
     <!-- /.sidebar -->
   </aside>
+
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -151,15 +158,7 @@
               <div class="card-header">
                 <h3 class="card-title" style="margin-left: 40%"><b>USER MANAGEMENT</b></h3>
               </div><br>
-                <div class="container-fluid">
-                    <div class="row">
-                    <div class="col-md-4">
-                        <button class="btn bg-pink btn-md" data-toggle="modal" data-target="#addUser"><i class="fa fa-plus"></i> Add User</button>
-                    </div>
-                    <div class="col-md-4"></div>
-                    <div class="col-md-4"></div>
-                </div>
-                </div>
+              </div>
               <!-- /.card-header -->
               <div class="card-body">
                 <table id="example1" class="table table-bordered table-striped">
@@ -171,7 +170,6 @@
                     <th>Contact</th>
                     <th>Email</th>
                     <th>User Category</th>
-                    <th>Action</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -209,12 +207,7 @@
                       <td><?php echo $row_data['username']; ?></td>
                       <td><?php echo $row_data['contact']; ?></td>
                       <td><?php echo $row_data['email']; ?></td>
-                      <td>User</td> <!-- hard coded to be removed-->
-                      <td>
-                        <button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#updateCust1"><i class="fa fa-pencil-alt"> Edit</i> 
-                              </button>
-                        <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#delete"><i class="fa fa-trash"> Delete</i></button>
-                      </td>
+                      <td><?php echo $row_data['user_category']; ?></td>
                     </tr>
                   <?php 
                   }
@@ -231,208 +224,9 @@
         <!-- /.row -->
       </div>
       <!-- /.container-fluid -->
-    </section>
-    <!-- /.content -->
-      <!--ALL TARGET MODAL-->
-      
-    <div class="modal fade" id="addUser">
-      <form role="form" id="quickForm" enctype="multipart/form-data">
-        <div class="modal-dialog modal-lg">
-              <div class="modal-content">
-                <div class="modal-header bg-pink">
-                  <h5 class="modal-title" style="margin-left:40%"><i class="fa fa-plus"> Add User</i></h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="card card-primary">
-                  <!-- form start -->
-                    <div class="card-body">
-                        <div  class="row" style="color:black;">
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label>Choose Profile: <span style="color:red;">*</span></label>
-                                    <input type="file" class="form-control" name="Avatar" id="Avatar">
-                                </div>
-                            </div>
-                            <div class="col-sm-8">
-                                <div class="row">
-                                    <div class="form-group col-sm-12">
-                                        <label for="fn">Fullname: <span style="color:red;">*</span></label>
-                                        <input type="text" class="form-control" class="form-control" id="fn" name="fname" placeholder="Firstname                        Middlename                         Lastname" size="5" autofocus required>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-group col-sm-6">
-                                        <label for="cn">Contact: <span style="color:red;">*</span></label>
-                                        <input type="number" class="form-control" maxlength="11" id="cn" name="contact" placeholder="Contact Number" size="40" required>
-                                    </div>
-                                    <div class="form-group col-sm-6">
-                                        <label for="email">Email: <span style="color:red;">*</span></label>
-                                        <input type="email" class="form-control" id="email" name="email" placeholder="Email Address" size="40" required>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-group col-sm-12">
-                                        <label for="addrs">Barangay: <span style="color:red;">*</span></label>
-                                        <input type="text" class="form-control" id="addrs" name="address" placeholder="Barangay" size="40" required>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-group col-sm-6">
-                                        <label for="user_categ">User Category: <span style="color:red;">*</span></label>
-                                        <input type="text" class="form-control" id="user_categ" name="user_categ" placeholder="User Category" size="40" required>
-                                    </div>
-                                    <div class="form-group col-sm-6">
-                                        <label for="stats">Status: <span style="color:red;">*</span></label>
-                                        <select id="stats" name="stats" class="form-control" required>
-                                        <option selected disabled>Select Status </option>
-                                        <option value="Active">Active</option>
-                                        <option value="Inactive">Inactive</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-group col-sm-6">
-                                        <label for="uname">Username: <span style="color:red;">*</span></label>
-                                        <input type="text" class="form-control" id="uname" name="uname" placeholder="Username" size="40" required>
-                                    </div>
-                                    <div class="form-group col-sm-6">
-                                        <label for="password">Password: <span style="color:red;">*</span></label>
-                                        <input type="password" class="form-control" id="password" name="password" placeholder="Password" size="40" required>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /.card-body -->
-                  </div>
-                <div class="modal-footer justify-content-between">
-                  <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
-                  <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Submit</button>
-                </div>
-              </div>
-              <!-- /.modal-content -->
-            </div>
-            <!-- /.modal-dialog -->
-          </form>
-      </div>
-    <div class="modal fade" id="updateCust1">
-      <form role="form" id="quickForm1" enctype="multipart/form-data">
-        <div class="modal-dialog modal-lg">
-              <div class="modal-content">
-                <div class="modal-header bg-pink">
-                  <h5 class="modal-title" style="margin-left:40%"><i class="fa fa-spinner"> Update User</i></h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="card card-primary">
-                  <!-- form start -->
-                    <div class="card-body">
-                        <div  class="row" style="color:black;">
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label>Choose Profile: <span style="color:red;">*</span></label>
-                                    <input type="file" class="form-control" name="Avatar" id="Avatar11">
-                                </div>
-                            </div>
-                            <div class="col-sm-8">
-                                <div class="row">
-                                    <div class="form-group col-sm-12">
-                                        <label for="fn">Fullname: <span style="color:red;">*</span></label>
-                                        <input type="text" class="form-control" class="form-control" id="fn" name="fname" placeholder="Firstname                        Middlename                         Lastname" value="Celia Gomez" size="5" autofocus required>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-group col-sm-6">
-                                        <label for="cn">Contact: <span style="color:red;">*</span></label>
-                                        <input type="number" class="form-control" maxlength="11" id="cn" name="contact" placeholder="Contact Number" value="09091234567" size="40" required>
-                                    </div>
-                                    <div class="form-group col-sm-6">
-                                        <label for="email">Email: <span style="color:red;">*</span></label>
-                                        <input type="email" class="form-control" id="email" name="email" placeholder="Email Address" value="Email000@gmail.com" size="40" required>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-group col-sm-12">
-                                        <label for="addrs">Barangay: <span style="color:red;">*</span></label>
-                                        <input type="text" class="form-control" id="addrs" name="address" placeholder="Barangay" value="Barangay Mansilingan" size="40" required>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-group col-sm-6">
-                                        <label for="user_categ">User Category: <span style="color:red;">*</span></label>
-                                        <input type="text" class="form-control" id="user_categ" name="user_categ" placeholder="User Category" value="Administrator" size="40" required>
-                                    </div>
-                                    <div class="form-group col-sm-6">
-                                        <label for="stats">Status: <span style="color:red;">*</span></label>
-                                        <select id="stats" name="stats" class="form-control" required>
-                                        <option value="Active">Active</option>
-                                        <option value="Inactive">Inactive</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-group col-sm-6">
-                                        <label for="uname">Username: <span style="color:red;">*</span></label>
-                                        <input type="text" class="form-control" id="uname" name="uname" placeholder="Username" value="celiagomez000" size="40" required>
-                                    </div>
-                                    <div class="form-group col-sm-6">
-                                        <label for="password">Password: <span style="color:red;">*</span></label>
-                                        <input type="password" class="form-control" id="password" name="password" value="celiagomez000" placeholder="Password" size="40" required>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /.card-body -->
-                  </div>
-                <div class="modal-footer justify-content-between">
-                  <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
-                  <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Submit</button>
-                </div>
-              </div>
-              <!-- /.modal-content -->
-            </div>
-            <!-- /.modal-dialog -->
-          </form>
-      </div>
-       <div class="modal fade" id="delete">
-        <div class="modal-dialog" style="width:400px !important;">
-            <form action="">
-              <div class="modal-content">
-                <div class="modal-header bg-danger">
-                  <h6 class="modal-title" style="margin-left:15%">Are you sure you want delete?</h6>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                  </button>
-                </div>
-                <div class="modal-footer justify-content-between">
-                  <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times"></i> No</button>
-                  <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Yes</button>
-                </div>
-              </div>
-              </form>
-              <!-- /.modal-content -->
-            </div>
-            <!-- /.modal-dialog -->
-          </div>
-      </div>
+    </section>     
+  </div>
   <!-- /.content-wrapper -->
-  <footer class="main-footer">
-    <strong>Copyright &copy; 2021 - 2022 <a href="#">Curfew&TravelPassUI</a>.</strong>
-    All rights reserved.
-    <div class="float-right d-none d-sm-inline-block">
-      <b>Version</b> 3.0.5
-    </div>
-  </footer>
-
-  <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
-  </aside>
-  <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
 

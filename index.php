@@ -19,14 +19,14 @@
   }
 
   if(isset($_REQUEST['sign-in'])){
-    $sql = "select username, password from user_registration";
+    $sql = "select username, hash_pass from user_registration";
     $result = mysqli_query($conn, $sql);
 
     if($result1->num_rows > 0){
       while($row = $result1->fetch_assoc()){
         if($row["username"] == $username){
 
-          if($row["password" == $password]){
+          if($row["password"] == $hash_pass){
             header("location: dashborad.php");
             exit;
           }

@@ -4,6 +4,7 @@
   $passCode = $_REQUEST['pc'];
   $passType = $_REQUEST['passType'];
   $dateOfRequest = $_REQUEST['dRequest'];
+  // settype($dateOfRequest, )
   $dateOfValidity = $_REQUEST['dValidity'];
   $remarks = $_REQUEST['remarks'];
   $username = "samp";
@@ -46,7 +47,7 @@
 
   if(isset($_REQUEST['submit_form'])){
 
-    $sql = "insert into request_form(name, pass_code, pass_type, username, date_of_request, date_of_validity, remark) values ('$personName', '$passCode', '$passType', '$username', '$dateOfRequest', '$dateOfValidity', '$remarks')";
+    $sql = "insert into request_form(name, pass_code, pass_type, username, date_of_request, date_of_validity, remark) values ('$personName', '$passCode', '$passType', '$username', $dateOfRequest, $dateOfValidity, '$remarks')";
     
 
     if(mysqli_query($conn, $sql)){

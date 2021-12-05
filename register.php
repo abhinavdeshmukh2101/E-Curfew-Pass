@@ -3,10 +3,12 @@
   $personName = $_REQUEST['personName'];
   $username = $_REQUEST['username'];
   $password = $_REQUEST['password'];
+  $confirm_password = $_REQUEST['confirm_password'];
   $contactNo = $_REQUEST['contactNo'];
-  settype($contactNo, "integer");
-  $emailId = $_REQUEST['emaiId'];
-  $userCategory = "user";
+  settype($contactNo, 'integer');
+  $emailId = $_REQUEST['emailId'];
+  $hash_pass = "";
+  settype($hash_pass, 'string');
   $unique = "true";
   $conn = mysqli_connect("localhost", "abhi9", "12345", "epass");
 
@@ -27,26 +29,40 @@
     $password = $_REQUEST['password'];
   }
 
+  if(isset($_REQUEST['confirm_password'])){
+    $confirm_password = $_REQUEST['confirm_password'];
+  }
+
   if(isset($_REQUEST['contactNo'])){
     $contactNo = $_REQUEST['contactNo'];
   }
 
-  if(isset($_REQUEST['emaiId'])){
-    $emailId = $_REQUEST['emaiId'];
+  if(isset($_REQUEST['emailId'])){
+    $emailId = $_REQUEST['emailId'];
   }
 
   //sending the date to database.
   if(isset($_REQUEST['submit_form'])){
 
+
     if(strlen($username) < 5){
       $message = "Set a username, whose lenght is atleast 5 charecters.";
       echo "<script type='text/javascript'>alert('$message');</script>";
+      exit;
     }
     
-    if(strlen($password) < 8){
-      $message = "Set a password, whose lenght is atleast 5 charecters.";
+
+    if($password != $confirm_password){
+      $message = "Password and Confirm Password field do not match.";
       echo "<script type='text/javascript'>alert('$message');</script>";
+      exit;
+    }else if($password == $confirm_password){
+      $hash_pass = password_hash($password, PASSWORD_DEFAULT);
+      settype($hash_pass, 'string');
     }
+
+    $message = $hash_pass;
+    echo "<script type='text/javascript'>alert('$message');</script>";
 
     //checking is the username already exist in the database or not.
     $sql1 = "select username from user_registration";
@@ -68,9 +84,12 @@
 
     if($unique == "true"){
 
-      $sql2 = "insert into user_registration(name, username, password, contact, email, user_category) values('$personName', '$username', '$password', $contactNo, '$emailId', '$userCategory')";
+      // echo "'$personName', '$username', $contactNo, '$emailId'";
+
+      $sql2 = "insert into user_registration(name, username, contact, email, user_category, hash_pass) values('$personName', '$username', $contactNo, '$emailId', 'user', '$hash_pass')";
 
       $result2 = mysqli_query($conn, $sql2);
+      
       if($result2){
         $message = "Request Send Successfully";
         echo "<script type='text/javascript'>alert('$message');</script>";
@@ -139,9 +158,13 @@
                                   </div>
                               </div>
                               <div class="row">
-                                  <div class="form-group col-sm-12">
+                                  <div class="form-group col-sm-6">
                                     <label for="password">Password: <span style="color:red;">*</span></label>
-                                    <input type="text" class="form-control" id="password" name="password" placeholder="Set your password" size="40" required>
+                                    <input type="password" class="form-control" id="password" name="password" placeholder="Set your password" minlength="8" size="40" required>
+                                  </div>
+                                  <div class="form-group col-sm-6">
+                                    <label for="confirm_password">Confirm Password: <span style="color:red;">*</span></label>
+                                    <input type="password" class="form-control" id="confirm_password" name="confirm_password" placeholder="Re-Enter your password" minlength="8" size="40" required>
                                   </div>
                               </div>
                               <div class="row">
@@ -150,8 +173,8 @@
                                       <input type="text" class="form-control" id="emailId" name="emailId" placeholder="Enter the email Id" size="40" required>
                                   </div>
                                   <div class="form-group col-sm-6">
-                                      <label for="ContactNo">Contact No: <span style="color:red;">*</span></label>
-                                      <input type="text" class="form-control" id="contactNo" name="ContactNo" placeholder="Enter the Contact Number" size="40" required>
+                                      <label for="contactNo">Contact No: <span style="color:red;">*</span></label>
+                                      <input type="tel" class="form-control" id="contactNo" name="ContactNo" placeholder="Enter the Contact Number" size="40" pattern = "[0-9]{10}" required>
                                   </div>
                               </div>
                           </div>

@@ -154,28 +154,17 @@
               <div class="card-header">
                 <h3 class="card-title" style="margin-left: 40%"><b>REQUEST PASS</b></h3>
               </div><br>
-                <div class="container-fluid">
-                    <div class="row">
-                    <div class="col-md-4">
-                        <button class="btn bg-pink btn-md" data-toggle="modal" data-target="#addRequest"><i class="fa fa-plus"></i> Add Request</button>
-                    </div>
-                    <div class="col-md-4"></div>
-                    <div class="col-md-4"></div>
-                </div>
-                </div>
+            </div>
               <!-- /.card-header -->
               <div class="card-body">
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
                     <th>Person Name</th>
-                    <th>Pass Code</th>
                     <th>Pass Type</th>
                     <th>Date of Request</th>
                     <th>Date of Validity</th>
-                    <th>Remarks</th>
                     <th>Status</th>
-                    <th>Approved By</th>
                     <th>Action</th>
                   </tr>
                   </thead>
@@ -198,6 +187,36 @@
                       <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#delete"><i class="fa fa-trash"> Delete</i></button>
                     </td>
                   </tr> -->
+
+                  <?php 
+                  
+                    $conn3 = mysqli_connect("localhost", "abhi9", "12345", "epass");
+                    if ($conn3->connect_error) {
+                      die("Connection failed: " . $conn->connect_error);
+                    }
+
+                    $records = mysqli_query($conn3,"select * from request_form");
+
+                    $record_from_user = mysqli_query($conn3, "select * from user_registration where username = '$username'");
+
+                    while($row_data = mysqli_fetch_array($records)){
+                    ?>
+                      <tr>
+                        <td><?php echo $row_data['name']; ?></td>
+                        <td><?php echo $row_data['pass_type']; ?></td>
+                        <td><?php echo $row_data['date_of_request']; ?></td>
+                        <td><?php echo $row_data['date_of_validity']; ?></td>
+                        <td><?php echo $record_from_user['emailId']; ?></td>
+                        <td><?php echo $record_from_user['contactNo']; ?></td>
+                        <td><?php echo $row_data['status']; ?></td> 
+                        <td>
+                          <button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#updateCust1"><i class="fa fa-pencil-alt"> Edit</i></button>
+                          <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" id="delete_user" data-target="#delete"><i class="fa fa-trash"> Delete</i></button>
+                        </td>
+                      </tr>
+                  <?php 
+                    }
+                  ?>
 
                   
                   </tbody>
