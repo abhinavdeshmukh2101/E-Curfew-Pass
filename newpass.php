@@ -1,17 +1,25 @@
 <?php
+  session_start();
+  
+  $UserId = $_SESSION["ID"];
+
   //connecting to MYSQL database
+
   $personName = $_REQUEST['cname'];
   $passCode = $_REQUEST['pc'];
   $passType = $_REQUEST['passType'];
-  $dateOfRequest = $_REQUEST['dRequest'];
-  // settype($dateOfRequest, )
+  settype($passType, 'string');
+  $dateOfRequest = $_REQUEST['dRequestForm'];
+  settype($dateOfRequest, 'string');
   $dateOfValidity = $_REQUEST['dValidity'];
+  settype($dateOfValidity, 'string');
   $remarks = $_REQUEST['remarks'];
   $username = "samp";
-  $conn = mysqli_connect("localhost", "abhi9", "12345", "epass");
 
-  if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+  $conn5 = mysqli_connect("localhost", "abhi9", "12345", "epass");
+
+  if ($conn5->connect_error) {
+    die("Connection failed: " . $conn5->connect_error);
   }
   // echo "Connected successfully";
 
@@ -31,8 +39,9 @@
     $passType = $_REQUEST['passType'];
   }
 
-  if(isset($_REQUEST['dRequest'])){
-    $dateOfRequest = $_REQUEST['dRequest'];
+  if(isset($_REQUEST['dRequestForm'])){
+    $dateOfRequest = $_REQUEST['dRequestForm'];
+
   }
 
   if(isset($_REQUEST['dValidity'])){
@@ -47,18 +56,20 @@
 
   if(isset($_REQUEST['submit_form'])){
 
-    $sql = "insert into request_form(name, pass_code, pass_type, username, date_of_request, date_of_validity, remark) values ('$personName', '$passCode', '$passType', '$username', $dateOfRequest, $dateOfValidity, '$remarks')";
-    
+    $sql5 = "insert into request_form(name, pass_code, pass_type, username, date_of_request, date_of_validity, remark) values ('$personName', '$passCode', '$passType', '$username', '$dateOfRequest', '$dateOfValidity', '$remarks')";
 
-    if(mysqli_query($conn, $sql)){
-      $message = "Request Send Successfully";
+    // $message = "$personName, $passCode, $passType, $dateOfRequest, $dateOfValidity, $remarks";
+    // echo "<script type='text/javascript'>alert('$message');</script>";
+
+    if(mysqli_query($conn5, $sql5)){
+      $message = "Please Try Again";
       echo "<script type='text/javascript'>alert('$message');</script>";
     }else{
-      $message = "Please Try Again";
+      $message = "Request Send Successfully";
       echo "<script type='text/javascript'>alert('$message');</script>";
     }
 
-    mysqli_close($conn);
+    mysqli_close($conn5);
   }
 ?>
 
@@ -88,9 +99,9 @@
 <div class="row py-5">
     <div class="col-md-6">
           <div class="login-logo">
-            <a href="index.php"><b>Curfew and </b>Travel Pass<br>
+            <a href="index.php"><b>Curfew E-Pass </b><br>
                 <img src="ctp_logo.png" alt="Your Avatar" class="img img-responsive" style="opacity:60%;left-margin:auto; max-width:auto"><br>
-                UI</a>
+                </a>
           </div>
     </div>
     <div class="col-md-6">
@@ -99,7 +110,7 @@
           <div class="card">
             <div class="card-body login-card-body">
               <p class="login-box-msg">Fill the information for generating pass</p>
-              <form action="#" method="post">
+              <form method="post">
 
                 <!-- Form -->
                 <div class="card-body">
@@ -127,18 +138,18 @@
                               </div>
                               <div class="row">
                                   <div class="form-group col-sm-6">
-                                    <label for="dRequest">Date of Request: <span style="color:red;">*</span></label>
-                                    <input type="date" class="form-control"  id="dRequest" name="dRequest" value="2021-03-15" required>
+                                    <label for="dRequestForm">Date of Request(From): <span style="color:red;">*</span></label>
+                                    <input type="date" class="form-control"  id="dRequestForm" name="dRequestForm" value="2021-03-15" required>
                                   </div>
                                   <div class="form-group col-sm-6">
-                                    <label for="dValidity">Date of Validity: <span style="color:red;">*</span></label>
+                                    <label for="dValidity">Date of Validity(Till): <span style="color:red;">*</span></label>
                                       <input type="date" class="form-control"  id="dValidity" name="dValidity" value="2021-04-15" required>
                                   </div>
                               </div>
                               <div class="row">
                                   <div class="form-group col-sm-12">
-                                      <label for="rmrks">Remarks: <span style="color:red;">*</span></label>
-                                      <textarea id="rmrks" name="remarks" class="form-control" cols="5" rows="3" placeholder="Remarks" required>Remarks</textarea>
+                                      <label for="remarks">Remarks: <span style="color:red;">*</span></label>
+                                      <textarea id="remarks" name="remarks" class="form-control" cols="5" rows="3" placeholder="Remarks" required>Remarks</textarea>
                                   </div>
                               </div>
                           </div>

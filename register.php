@@ -5,7 +5,6 @@
   $password = $_REQUEST['password'];
   $confirm_password = $_REQUEST['confirm_password'];
   $contactNo = $_REQUEST['contactNo'];
-  settype($contactNo, 'integer');
   $emailId = $_REQUEST['emailId'];
   $hash_pass = "";
   settype($hash_pass, 'string');
@@ -50,6 +49,12 @@
       echo "<script type='text/javascript'>alert('$message');</script>";
       exit;
     }
+
+    if(strlen($contactNo) < 10 || strlen($contactNo) > 10){
+      $message = "Enter a valid phone Number";
+      echo "<script type='text/javascript'>alert('$message');</script>";
+      exit;
+    }
     
 
     if($password != $confirm_password){
@@ -57,7 +62,7 @@
       echo "<script type='text/javascript'>alert('$message');</script>";
       exit;
     }
-    
+
 
     // $message = $hash_pass;
     // echo "<script type='text/javascript'>alert('$message');</script>";
@@ -84,7 +89,7 @@
 
       // echo "'$personName', '$username', $contactNo, '$emailId'";
 
-      $sql2 = "insert into user_registration(name, username, password, contact, email, user_category) values('$personName', '$username', '$password' ,$contactNo, '$emailId', 'user')";
+      $sql2 = "insert into user_registration(name, username, password, contact, email, user_category) values('$personName', '$username', '$password' , '$contactNo', '$emailId', 'user')";
 
       $result2 = mysqli_query($conn, $sql2);
       
@@ -172,7 +177,7 @@
                                   </div>
                                   <div class="form-group col-sm-6">
                                       <label for="contactNo">Contact No: <span style="color:red;">*</span></label>
-                                      <input type="tel" class="form-control" id="contactNo" name="ContactNo" placeholder="Enter the Contact Number" size="40" pattern = "[0-9]{10}" required>
+                                      <input type="text" class="form-control" id="contactNo" name="contactNo" placeholder="Enter the Contact Number" size="40" required>
                                   </div>
                               </div>
                           </div>

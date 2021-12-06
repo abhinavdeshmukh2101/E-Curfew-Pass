@@ -1,3 +1,82 @@
+<?php 
+
+session_start();
+
+$conn = mysqli_connect("localhost", "abhi9", "12345", "epass");
+
+  if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+    echo "alert('connection failed')";
+    echo "<script type='text/javascript'>alert('connection failed');</script>";
+  }
+  else {
+    $message = 'Connection established';
+    // echo "<script type='text/javascript'>alert('$message');</script>";
+  }
+
+  //$sql = "select count(user_category) from user_registration where user_category = user ";
+
+  //$result = mysqli_query($con , $sql);
+
+  //echo "alert('$result')";
+
+
+  $sql1 = "select count(user_category) as Val from user_registration where user_category = 'user'";
+
+  $sql2 = "select count(*) from request_form;";
+
+  $sql3 = "select count(*) from request_form where pass_status='Approved'";
+
+  $sql4 = "select count(*) from request_form where pass_status='Pending'";
+
+  $result1 = mysqli_query($conn , $sql1);
+
+  $result2 = mysqli_query($conn , $sql2);
+
+  $result3 = mysqli_query($conn , $sql3);
+
+  $result4 = mysqli_query($conn , $sql4); 
+
+
+
+  if(!$result1 && !$result2 && !$result3 && !$result4)
+  {
+    echo "<script type='text/javascript'>alert('connection failed');</script>";
+  }
+
+  else
+  {
+    // echo "<script type='text/javascript'>alert('connection established');</script>";
+  
+    if($row = mysqli_fetch_row($result1)){
+      $val1 = $row[0];
+
+      // echo "<script type='text/javascript'>alert('value :$val');</script>";
+
+    }
+
+    if($row = mysqli_fetch_row($result2))
+    {
+      $val2 = $row[0];
+    }
+
+    if($row = mysqli_fetch_row($result3))
+    {
+      $val3 = $row[0];
+    }
+    if($row = mysqli_fetch_row($result4))
+    {
+      $val4 = $row[0];
+    }
+    
+  //  if($row = $result->fetch_assoc()){
+  //  echo "<script type='text/javascript'>alert('Value : $row[0]');</script>";
+  //}
+  }
+
+?>
+<!-- ENd of php-->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,21 +111,9 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="nav-link">Home</a>
+        <a href="/dashboard.php" class="nav-link">Home</a>
       </li>
     </ul>
-
-    <!-- SEARCH FORM -->
-    <form class="form-inline ml-3">
-      <div class="input-group input-group-sm">
-        <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
-        <div class="input-group-append">
-          <button class="btn btn-navbar" type="submit">
-            <i class="fas fa-search"></i>
-          </button>
-        </div>
-      </div>
-    </form>
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
@@ -68,7 +135,7 @@
            alt="AdminLTE Logo"
            class="brand-image img-circle elevation-3"
            style="opacity: .8">
-      <span class="brand-text font-weight-light">Curfew&TravelPass</span>
+      <span class="brand-text font-weight-light">Curfew E-Pass</span>
     </a>
 
     <!-- Sidebar -->
@@ -77,9 +144,6 @@
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
           <img src="dist/img/avatar2.png" class="img-circle elevation-2" alt="User Image">
-        </div>
-        <div class="info">
-          <a href="#" class="d-block">Celia Gomez</a>
         </div>
       </div>
 
@@ -150,7 +214,10 @@
 
               <div class="info-box-content">
                 <span class="info-box-text">No. of Person</span>
-                <span class="info-box-number">2</span>
+                <span class="info-box-number"><script type="text/javascript">
+        var x = "<?php echo"$val1"?>";
+        document.write(x);
+    </script></span>
               </div>
               <!-- /.info-box-content -->
             </div>
@@ -163,7 +230,10 @@
 
               <div class="info-box-content">
                 <span class="info-box-text">No. of Request Pass</span>
-                <span class="info-box-number">2</span>
+                <span class="info-box-number"><script type="text/javascript">
+        var x = "<?php echo"$val2"?>";
+        document.write(x);
+    </script></span>
               </div>
               <!-- /.info-box-content -->
             </div>
@@ -180,7 +250,10 @@
 
               <div class="info-box-content">
                 <span class="info-box-text">No. of Approved Pass</span>
-                <span class="info-box-number">0</span>
+                <span class="info-box-number"><script type="text/javascript">
+        var x = "<?php echo"$val3"?>";
+        document.write(x);
+    </script></span>
               </div>
               <!-- /.info-box-content -->
             </div>
@@ -198,8 +271,11 @@
               <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-times"></i></span>
 
               <div class="info-box-content">
-                <span class="info-box-text">No. of Declined Pass</span>
-                <span class="info-box-number">0</span>
+                <span class="info-box-text">No. of Pending Pass</span>
+                <span class="info-box-number"><script type="text/javascript">
+        var x = "<?php echo"$val4"?>";
+        document.write(x);
+    </script></span>
               </div>
               <!-- /.info-box-content -->
             </div>

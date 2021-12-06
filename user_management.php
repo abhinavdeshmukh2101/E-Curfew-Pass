@@ -1,9 +1,3 @@
-<?php
-
-?>
-
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,32 +29,12 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="nav-link">Home</a>
-      </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="nav-link">Contact</a>
+        <a href="/dashboard.php" class="nav-link">Home</a>
       </li>
     </ul>
 
-    <!-- SEARCH FORM -->
-    <form class="form-inline ml-3">
-      <div class="input-group input-group-sm">
-        <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
-        <div class="input-group-append">
-          <button class="btn btn-navbar" type="submit">
-            <i class="fas fa-search"></i>
-          </button>
-        </div>
-      </div>
-    </form>
-
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
-      <li class="nav-item">
-        <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
-          <i class="fas fa-th-large"></i>
-        </a>
-      </li>
       <li class="nav-item dropdown">
         <a class="nav-link" href="index.php">
           Logout <i class="nav-icon fas fa-sign-out-alt"></i> 
@@ -79,7 +53,7 @@
            alt="AdminLTE Logo"
            class="brand-image img-circle elevation-3"
            style="opacity: .8">
-      <span class="brand-text font-weight-light">Curfew&TravelPass</span>
+      <span class="brand-text font-weight-light">Curfew E-Pass</span>
     </a>
 
     <!-- Sidebar -->
@@ -88,9 +62,6 @@
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
           <img src="dist/img/avatar2.png" class="img-circle elevation-2" alt="User Image">
-        </div>
-        <div class="info">
-          <a href="#" class="d-block">Celia Gomez</a>
         </div>
       </div>
 
@@ -173,23 +144,6 @@
                   </tr>
                   </thead>
                   <tbody>
-                  <!-- <tr>
-                    <td><img src="dist/img/avatar2.png" alt="AdminLTE Logo" class="brand-image img-square elevation-3" width="40" style="opacity: .8"></td>
-                    <td>Celia Gomez</td>
-                    <td>09091234567</td>
-                    <td>Email000@gmail.com</td>
-                    <td>Barangay Mansilingan</td>
-                    <td>Administrator</td>
-                    <td>Active</td>
-                    <td>celiagomez000</td>
-                    <td>.............</td>
-                    <td>
-                      <button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#updateCust1"><i class="fa fa-pencil-alt"> Edit</i> 
-                            </button>
-                      <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#delete"><i class="fa fa-trash"> Delete</i></button>
-                    </td>
-                  </tr> -->
-
                   <?php 
                   
                   $conn2 = mysqli_connect("localhost", "abhi9", "12345", "epass");

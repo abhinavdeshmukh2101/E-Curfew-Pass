@@ -1,10 +1,10 @@
 <!-- for login page-> authentication,  -->
 
 <?php
+  session_start();
 
   $userId = "";
   $password = "";
-  $userUniqueId = 1;
   settype($userUniqueId, 'integer');
   $redirectLink = "";
 
@@ -24,26 +24,26 @@
   }
 
   if(isset($_REQUEST['sign-in'])){
-    $sql = "select username, password, user_category from user_registration";
+    $sql = "select username, user_id, password, user_category from user_registration";
     $result = mysqli_query($conn1, $sql);
 
     if($result -> num_rows > 0){
       while($row = $result->fetch_assoc()){
         if($row["username"] == $userId){
 
+          $_SESSION["ID"] = $row["user_id"];
+
           if($row["password"] == $password){
             
             if($row["user_category"] == "admin"){
-              header('location:/dashboard.php/' . $userUniqueId);
-              $message = "Login Successfull";
-              echo "<script type='text/javascript'>alert('$message');</script>";
-              die;
+              header('location:/dashboard.php');
+              // $message = "Login Successfull";
+              // echo "<script type='text/javascript'>alert('$message');</script>";
             }
             else if($row["user_category"] == "user"){
-              header('location:/userDashboard.php/' . $userUniqueId);
-              die;
-              $message = "Login Successfull";
-              echo "<script type='text/javascript'>alert('$message');</script>";
+              header('location:/user_info.php');
+              // $message = "Login Successfull";
+              // echo "<script type='text/javascript'>alert('$message');</script>";
             }
           }
 
@@ -65,6 +65,7 @@
   
 
 ?>
+
 
 <!DOCTYPE html>
 <html>
@@ -101,7 +102,7 @@
           <div class="card">
             <div class="card-body login-card-body">
               <p class="login-box-msg">Sign in to start your session</p>
-              <form action="" method="post">
+              <form method="post">
                 <div class="input-group mb-3">
                   <input type="text" class="form-control" name="userName" placeholder="Username">
                   <div class="input-group-append">

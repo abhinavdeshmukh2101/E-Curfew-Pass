@@ -1,3 +1,32 @@
+<?php
+
+  session_start();
+
+  //connecting to MYSQL database
+
+  $submitButtonValue = "";
+  $conn6 = mysqli_connect("localhost", "abhi9", "12345", "epass");
+
+  if ($conn5->connect_error) {
+  die("Connection failed: " . $conn5->connect_error);
+  }
+  // echo "Connected successfully";
+
+  if(isset($_POST['approve'])){
+    $submitButtonValue = $_POST['approve'];
+    // echo "<script type='text/javascript'>alert('$message');</script>";
+
+    $sql6 = "update request_form set pass_status='Approved' where username = '$submitButtonValue'";
+  
+    if(mysqli_query($conn6, $sql6)){
+      $message = "Pass Approved Successfully!";
+      echo "<script type='text/javascript'>alert('$message');</script>";
+
+      // $sql7 = "delete from request_form"
+    }
+  }
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,32 +61,12 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="nav-link">Home</a>
-      </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="nav-link">Contact</a>
+        <a href="/dashboard.php" class="nav-link">Home</a>
       </li>
     </ul>
 
-    <!-- SEARCH FORM -->
-    <form class="form-inline ml-3">
-      <div class="input-group input-group-sm">
-        <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
-        <div class="input-group-append">
-          <button class="btn btn-navbar" type="submit">
-            <i class="fas fa-search"></i>
-          </button>
-        </div>
-      </div>
-    </form>
-
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
-      <li class="nav-item">
-        <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
-          <i class="fas fa-th-large"></i>
-        </a>
-      </li>
       <li class="nav-item dropdown">
         <a class="nav-link" href="index.php">
           Logout <i class="nav-icon fas fa-sign-out-alt"></i> 
@@ -76,7 +85,7 @@
            alt="AdminLTE Logo"
            class="brand-image img-circle elevation-3"
            style="opacity: .8">
-      <span class="brand-text font-weight-light">Curfew&TravelPass</span>
+      <span class="brand-text font-weight-light">Curfew E-Pass</span>
     </a>
 
     <!-- Sidebar -->
@@ -85,9 +94,6 @@
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
           <img src="dist/img/avatar2.png" class="img-circle elevation-2" alt="User Image">
-        </div>
-        <div class="info">
-          <a href="#" class="d-block">Celia Gomez</a>
         </div>
       </div>
 
@@ -162,6 +168,7 @@
                   <tr>
                     <th>Person Name</th>
                     <th>Pass Type</th>
+                    <th>Username</th>
                     <th>Date of Request</th>
                     <th>Date of Validity</th>
                     <th>Status</th>
@@ -197,21 +204,20 @@
 
                     $records = mysqli_query($conn3,"select * from request_form");
 
-                    $record_from_user = mysqli_query($conn3, "select * from user_registration where username = '$username'");
 
                     while($row_data = mysqli_fetch_array($records)){
                     ?>
                       <tr>
                         <td><?php echo $row_data['name']; ?></td>
                         <td><?php echo $row_data['pass_type']; ?></td>
+                        <td><?php echo $row_data['username']; ?></td>
                         <td><?php echo $row_data['date_of_request']; ?></td>
                         <td><?php echo $row_data['date_of_validity']; ?></td>
-                        <td><?php echo $record_from_user['emailId']; ?></td>
-                        <td><?php echo $record_from_user['contactNo']; ?></td>
-                        <td><?php echo $row_data['status']; ?></td> 
+                        <td><?php echo $row_data['pass_status']; ?></td>
                         <td>
-                          <button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#updateCust1"><i class="fa fa-pencil-alt"> Edit</i></button>
-                          <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" id="delete_user" data-target="#delete"><i class="fa fa-trash"> Delete</i></button>
+                          <form method="post" action="">
+                            <input type="submit" name="approve" value="<?php echo$row_data['username']; ?>" class="btn btn-info btn-xs"><i class="fa fa-pencil-alt">Approve</i></input>
+                          </form>
                         </td>
                       </tr>
                   <?php 
@@ -387,129 +393,9 @@
             <!-- /.modal-dialog -->
           </form>
       </div>
-  <div class="modal fade" id="updateRequest2">
-      <form role="form" id="quickForm2" enctype="multipart/form-data">
-        <div class="modal-dialog modal-md">
-              <div class="modal-content">
-                <div class="modal-header bg-pink">
-                  <h5 class="modal-title" style="margin-left:35%"><i class="fa fa-spinner"> Request Pass</i></h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="card card-primary">
-                  <!-- form start -->
-                    <div class="card-body">
-                        <div  class="row" style="color:black;">
-                            <div class="col-sm-12">
-                                <div class="row">
-                                    <div class="form-group col-sm-12">
-                                      <label for="cname">Person Name: <span style="color:red;">*</span></label>
-                                      <select id="cname" name="cname" class="form-control select2 select2bs4" style="width: 100%;" required>
-                                        <option value="Pedro Heracia">Pedro Heracia</option>
-                                        <option value="Julie Julia">Julie Julia</option>
-                                      </select>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-group col-sm-6">
-                                        <label for="pc">Passcode: <span style="color:red;">*</span></label>
-                                        <input type="text" class="form-control" id="pc" name="pc" placeholder="Pass Code" value="passCode" size="40" required>
-                                    </div>
-                                    <div class="form-group col-sm-6">
-                                        <label for="passType">Pass Type: <span style="color:red;">*</span></label>
-                                        <select id="passType" name="passType" class="form-control" required>                           <option value="Essential Pass">Essential Pass</option>
-                                        <option value="Medical Pass">Medical Pass</option>
-                                        <option value="Others">Others</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-group col-sm-6">
-                                      <label for="dRequest">Date of Request: <span style="color:red;">*</span></label>
-                                        <input type="date" class="form-control"  id="dRequest" name="dRequest" value="2021-03-15" required>
-                                    </div>
-                                    <div class="form-group col-sm-6">
-                                      <label for="dValidity">Date of Validity: <span style="color:red;">*</span></label>
-                                        <input type="date" class="form-control"  id="dValidity" name="dValidity" value="2021-04-15" required>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-group col-sm-12">
-                                        <label for="rmrks">Remarks: <span style="color:red;">*</span></label>
-                                        <textarea id="rmrks" name="rmrks" class="form-control" cols="5" rows="3" placeholder="Remarks" required>Remarks</textarea>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-group col-sm-12">
-                                        <label for="Status">Status: <span style="color:red;">*</span></label>
-                                        <input type="text" class="form-control" id="Status" name="Status" placeholder="Status" size="40" value="Pending.." required>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /.card-body -->
-                  </div>
-                <div class="modal-footer justify-content-between">
-                  <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
-                  <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Submit</button>
-                </div>
-              </div>
-              <!-- /.modal-content -->
-            </div>
-            <!-- /.modal-dialog -->
-          </form>
-      </div>
-       <div class="modal fade" id="approved">
-        <div class="modal-dialog" style="width:400px !important;">
-            <form action="">
-              <div class="modal-content">
-                <div class="modal-header bg-success">
-                  <h6 class="modal-title" style="margin-left:15%">Ready to Process, Please Click YES</h6>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                  </button>
-                </div>
-                <div class="modal-footer justify-content-between">
-                  <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times"></i> No</button>
-                  <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Yes</button>
-                </div>
-              </div>
-              </form>
-              <!-- /.modal-content -->
-            </div>
-            <!-- /.modal-dialog -->
-          </div>
-       <div class="modal fade" id="delete">
-        <div class="modal-dialog" style="width:400px !important;">
-            <form action="">
-              <div class="modal-content">
-                <div class="modal-header bg-danger">
-                  <h6 class="modal-title" style="margin-left:15%">Are you sure you want delete?</h6>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                  </button>
-                </div>
-                <div class="modal-footer justify-content-between">
-                  <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times"></i> No</button>
-                  <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Yes</button>
-                </div>
-              </div>
-              </form>
-              <!-- /.modal-content -->
-            </div>
-            <!-- /.modal-dialog -->
-          </div>
       </div>
   <!-- /.content-wrapper -->
-  <footer class="main-footer">
-    <strong>Copyright &copy; 2021 - 2022 <a href="#">Curfew&TravelPassUI</a>.</strong>
-    All rights reserved.
-    <div class="float-right d-none d-sm-inline-block">
-      <b>Version</b> 3.0.5
-    </div>
-  </footer>
+  
 
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
